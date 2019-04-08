@@ -17,6 +17,7 @@
 package demo.zzhwanandroid.utils;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -31,6 +32,7 @@ import java.util.Random;
 
 import demo.zzhwanandroid.R;
 import demo.zzhwanandroid.app.WanAndroidApp;
+import demo.zzhwanandroid.moudles.login.ui.LoginActivity;
 
 public class CommonUtils {
 
@@ -57,11 +59,11 @@ public class CommonUtils {
 //
 //    }
 
-//    public static void startLoginActivity(Context context) {
-//        Intent intent = new Intent(context, LoginActivity.class);
-//        context.startActivity(intent);
-//    }
-//
+    public static void startLoginActivity(Context context) {
+        Intent intent = new Intent(context, LoginActivity.class);
+        context.startActivity(intent);
+    }
+
 //    public static void startFragmentInCommonActivity(Context context, int fragmet) {
 //        Intent intent = new Intent(context, CommonActivity.class);
 //        intent.putExtra(Constants.TYPE_FRAGMENT_KEY, fragmet);
