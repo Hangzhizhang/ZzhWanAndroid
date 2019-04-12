@@ -33,13 +33,13 @@ public class GlideImageLoader {
      * @param url image url
      * @param iv imageView
      */
-//    public static void load(Context context, String url, ImageView iv) {
-//        GlideApp.with(context)
-//                .load(url)
-//                .placeholder(R.drawable.bg_placeholder)
-//                .transition(DrawableTransitionOptions.withCrossFade())
-//                .diskCacheStrategy(DiskCacheStrategy.DATA)
-//                .into(iv);
-//
-//    }
+    public static void load(Context context, String url, ImageView iv) {
+        GlideApp.with(context)
+                .load(url)
+                .placeholder(R.drawable.bg_placeholder)
+                .transition(DrawableTransitionOptions.withCrossFade())
+                .diskCacheStrategy(DiskCacheStrategy.DATA)
+                .into(iv);
+
+    }
 }

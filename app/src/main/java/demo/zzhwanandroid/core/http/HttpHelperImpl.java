@@ -16,9 +16,14 @@
 
 package demo.zzhwanandroid.core.http;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import demo.zzhwanandroid.core.http.api.ApiService;
+import demo.zzhwanandroid.moudles.homepage.banner.BannerData;
+import demo.zzhwanandroid.moudles.homepage.bean.ArticleItemData;
+import demo.zzhwanandroid.moudles.homepage.bean.ArticleListData;
 import demo.zzhwanandroid.moudles.login.bean.LoginData;
 import io.reactivex.Observable;
 
@@ -40,5 +45,20 @@ public class HttpHelperImpl implements HttpHelper {
     @Override
     public Observable<BaseResponse<LoginData>> login(String username, String password) {
         return mApiService.login(username,password );
+    }
+
+    @Override
+    public Observable<BaseResponse<ArticleListData>> getArticleList(int pageNum) {
+        return mApiService.getArticleList(pageNum);
+    }
+
+    @Override
+    public Observable<BaseResponse<List<BannerData>>> getBannerData() {
+        return mApiService.getBannerData();
+    }
+
+    @Override
+    public Observable<BaseResponse<List<ArticleItemData>>> getTopArticles() {
+        return mApiService.getTopArticles();
     }
 }

@@ -6,19 +6,25 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 import demo.zzhwanandroid.R;
 import demo.zzhwanandroid.base.activity.BaseActivity;
 import demo.zzhwanandroid.core.constant.Constants;
+import demo.zzhwanandroid.moudles.homepage.ui.HomePagerFragment;
 import demo.zzhwanandroid.moudles.main.contract.MainContract;
 import demo.zzhwanandroid.moudles.main.presenter.MainPresenter;
 import demo.zzhwanandroid.utils.CommonUtils;
@@ -39,11 +45,14 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     BottomNavigationView mBottomNavigationView;
     @BindView(R.id.fragment_group)
     FrameLayout mFrameGroup;
-
     TextView mUsTv;
+    private AlertDialog mDialog;
+    // Fragments
+    private HomePagerFragment mHomeFragment;
 
+    private int mLastFgIndex = -1;
     private int mCurrentFgIndex = 0; // 显示当前Fragment角标
-
+    private long clickTime;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         if (savedInstanceState != null) {
@@ -61,13 +70,54 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     @Override
     protected void initView() {
         initDrawerLayout();
-//        showFragment(mCurrentFgIndex);
+        showFragment(mCurrentFgIndex);
         initNavigationView();
         initBottomNavigationView();
     }
 
-    private void initBottomNavigationView() {
+    private void showFragment(int index) {
+        mCurrentFgIndex = index;
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        hideFragment(transaction);
+        mLastFgIndex = index;
+        switch (index){
+            case Constants.TYPE_HOME_PAGER:
+                mTitle.setText(R.string.home_pager);
+                if(mHomeFragment == null){
+                    mHomeFragment = HomePagerFragment.newInstance();
+                    transaction.add(R.id.fragment_group, mHomeFragment);
+                }
+                transaction.show(mHomeFragment);
+                break;
+            default:
+                break;
+        }
+        transaction.commit();
+    }
 
+    private void hideFragment(FragmentTransaction transaction) {
+        switch (mLastFgIndex){
+            case Constants.TYPE_HOME_PAGER:
+                if(mHomeFragment != null){
+                    transaction.hide(mHomeFragment);
+                }
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void initBottomNavigationView() {
+        mBottomNavigationView.setOnNavigationItemSelectedListener(item -> {
+            switch (item.getItemId()){
+                case R.id.tab_main_pager:
+                    showFragment(Constants.TYPE_HOME_PAGER);
+                    break;
+                default:
+                    break;
+            }
+            return true;
+        });
 
     }
 
@@ -151,9 +201,69 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_toolbar_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @OnClick({R.id.main_floating_action_btn})
+    void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.main_floating_action_btn:
+                jumpToTheTop();
+                break;
+            default:
+                break;
+        }
+    }
+    private void jumpToTheTop() {
+        switch (mCurrentFgIndex) {
+            case Constants.TYPE_HOME_PAGER:
+                if (mHomeFragment != null) {
+                    mHomeFragment.jumpToTheTop();
+                }
+                break;
+            default:
+                break;
+        }
+    }
+
+    /**
+     * 处理回退事件
+     */
+    @Override
+    public void onBackPressedSupport() {
+        if (getSupportFragmentManager().getBackStackEntryCount() > 1) {
+            pop();
+        } else {
+            long currentTime = System.currentTimeMillis();
+            if ((currentTime - clickTime) > Constants.DOUBLE_INTERVAL_TIME) {
+                ToastUtils.showToast(MainActivity.this, getString(R.string.double_click_exit_toast));
+                clickTime = System.currentTimeMillis();
+            } else {
+                finish();
+            }
+        }
+    }
+
+    @Override
     protected void initEventAndData() {
 
     }
+    @Override
+    public void showLoading() {
+        if (mDialog == null) {
+            mDialog = CommonUtils.getLoadingDialog(this, getString(R.string.logging_out));
+        }
+        mDialog.show();
+    }
 
+    @Override
+    public void hideLoading() {
+        if (mDialog != null) {
+            mDialog.dismiss();
+            mDialog = null;
+        }
+    }
 
 }

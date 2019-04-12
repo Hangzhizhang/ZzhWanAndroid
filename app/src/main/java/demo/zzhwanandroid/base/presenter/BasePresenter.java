@@ -87,5 +87,4 @@ public class BasePresenter<T extends IView> implements IPresenter<T> {
         }
         compositeDisposable.add(disposable);
     }
-
 }

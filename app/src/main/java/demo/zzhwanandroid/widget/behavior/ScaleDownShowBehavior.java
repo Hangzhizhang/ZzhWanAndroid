@@ -14,7 +14,7 @@
  *     limitations under the License.
  */
 
-package demo.zzhwanandroid.widget;
+package demo.zzhwanandroid.widget.behavior;
 
 import android.content.Context;
 import android.support.design.widget.CoordinatorLayout;

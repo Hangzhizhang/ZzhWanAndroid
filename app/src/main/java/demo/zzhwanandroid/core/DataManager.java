@@ -24,6 +24,9 @@ import demo.zzhwanandroid.core.greendao.HistoryData;
 import demo.zzhwanandroid.core.http.BaseResponse;
 import demo.zzhwanandroid.core.http.HttpHelper;
 import demo.zzhwanandroid.core.preference.PreferenceHelper;
+import demo.zzhwanandroid.moudles.homepage.banner.BannerData;
+import demo.zzhwanandroid.moudles.homepage.bean.ArticleItemData;
+import demo.zzhwanandroid.moudles.homepage.bean.ArticleListData;
 import demo.zzhwanandroid.moudles.login.bean.LoginData;
 import io.reactivex.Observable;
 
@@ -97,5 +100,19 @@ public class DataManager implements HttpHelper, DbHelper, PreferenceHelper {
     @Override
     public Observable<BaseResponse<LoginData>> login(String username, String password){
         return mHttpHelper.login(username, password);
+    }
+    // 获取首页列表数据
+    @Override
+    public Observable<BaseResponse<ArticleListData>> getArticleList(int pageNum){
+        return mHttpHelper.getArticleList(pageNum);
+    }
+    // 获取banner数据
+    @Override
+    public Observable<BaseResponse<List<BannerData>>> getBannerData(){
+        return mHttpHelper.getBannerData();
+    }
+    @Override
+    public Observable<BaseResponse<List<ArticleItemData>>> getTopArticles() {
+        return mHttpHelper.getTopArticles();
     }
 }
