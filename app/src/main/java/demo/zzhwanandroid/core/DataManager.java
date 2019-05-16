@@ -115,4 +115,14 @@ public class DataManager implements HttpHelper, DbHelper, PreferenceHelper {
     public Observable<BaseResponse<List<ArticleItemData>>> getTopArticles() {
         return mHttpHelper.getTopArticles();
     }
+    // 收藏
+    @Override
+    public Observable<BaseResponse<ArticleListData>> addCollectArticle(int id) {
+        return mHttpHelper.addCollectArticle(id);
+    }
+    // 取消收藏
+    @Override
+    public Observable<BaseResponse<ArticleListData>> cancelCollectArticle(int id) {
+        return mHttpHelper.cancelCollectArticle(id);
+    }
 }

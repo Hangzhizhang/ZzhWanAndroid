@@ -17,8 +17,13 @@
 package demo.zzhwanandroid.moudles.main.presenter;
 
 
+import demo.zzhwanandroid.R;
+import demo.zzhwanandroid.app.WanAndroidApp;
 import demo.zzhwanandroid.base.presenter.BasePresenter;
+import demo.zzhwanandroid.core.rx.BaseObserver;
+import demo.zzhwanandroid.moudles.homepage.bean.ArticleListData;
 import demo.zzhwanandroid.moudles.main.contract.CollectEventContract;
+import demo.zzhwanandroid.utils.RxUtils;
 
 public class CollectEventPresenter<V extends CollectEventContract.View>
         extends BasePresenter<V> implements CollectEventContract.Presenter<V> {
@@ -26,31 +31,31 @@ public class CollectEventPresenter<V extends CollectEventContract.View>
 
     @Override
     public void addCollectArticle(int postion, int id) {
-//        addSubscribe(mDataManager.addCollectArticle(id)
-//                .compose(RxUtils.SchedulerTransformer())
-//                .filter(articleListData -> mView != null)
-//                .subscribeWith(new BaseObserver<ArticleListData>(mView,
-//                        WanAndroidApp.getContext().getString(R.string.failed_to_cancel_collect),
-//                        false) {
-//                    @Override
-//                    public void onSuccess(ArticleListData articleListData) {
-//                        mView.showCollectSuccess(postion);
-//                    }
-//                }));
+        addSubscribe(mDataManager.addCollectArticle(id)
+                .compose(RxUtils.SchedulerTransformer())
+                .filter(articleListData -> mView != null)
+                .subscribeWith(new BaseObserver<ArticleListData>(mView,
+                        WanAndroidApp.getContext().getString(R.string.failed_to_cancel_collect),
+                        false) {
+                    @Override
+                    public void onSuccess(ArticleListData articleListData) {
+                        mView.showCollectSuccess(postion);
+                    }
+                }));
     }
 
     @Override
     public void cancelCollectArticle(int postion, int id) {
-//        addSubscribe(mDataManager.cancelCollectArticle(id)
-//                .compose(RxUtils.SchedulerTransformer())
-//                .filter(articleListData -> mView != null)
-//                .subscribeWith(new BaseObserver<ArticleListData>(mView,
-//                        WanAndroidApp.getContext().getString(R.string.failed_to_cancel_collect),
-//                        false) {
-//                    @Override
-//                    public void onSuccess(ArticleListData articleListData) {
-//                        mView.showCancelCollectSuccess(postion);
-//                    }
-//                }));
+        addSubscribe(mDataManager.cancelCollectArticle(id)
+                .compose(RxUtils.SchedulerTransformer())
+                .filter(articleListData -> mView != null)
+                .subscribeWith(new BaseObserver<ArticleListData>(mView,
+                        WanAndroidApp.getContext().getString(R.string.failed_to_cancel_collect),
+                        false) {
+                    @Override
+                    public void onSuccess(ArticleListData articleListData) {
+                        mView.showCancelCollectSuccess(postion);
+                    }
+                }));
     }
 }

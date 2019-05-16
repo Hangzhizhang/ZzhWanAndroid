@@ -21,6 +21,7 @@ import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
 import demo.zzhwanandroid.di.component.BaseActivityComponent;
 import demo.zzhwanandroid.moudles.login.ui.LoginActivity;
+import demo.zzhwanandroid.moudles.main.ui.activity.ArticleDetailActivity;
 import demo.zzhwanandroid.moudles.main.ui.activity.MainActivity;
 
 @Module(subcomponents = {BaseActivityComponent.class})
@@ -29,5 +30,6 @@ public abstract class AbstractAllActivityModule {
     abstract MainActivity contributesMainActivityInjector();
     @ContributesAndroidInjector(modules = LoginActivityModule.class)
     abstract LoginActivity contributesLoginActivityInject();
-
+    @ContributesAndroidInjector(modules = ArticleDetailActivityModule.class)
+    abstract ArticleDetailActivity contributesArticleDetailActivityInject();
 }

@@ -81,5 +81,19 @@ public interface ApiService {
      */
     @GET("article/top/json")
     Observable<BaseResponse<List<ArticleItemData>>> getTopArticles();
+    /**
+     * 收藏站内文章
+     * @param id article id
+     * @return 收藏站内文章数据
+     */
+    @POST("lg/collect/{id}/json")
+    Observable<BaseResponse<ArticleListData>> addCollectArticle(@Path("id") int id);
+    /**
+     * 文章列表中取消收藏文章
+     * @param id 列表中文章的id
+     * @return 取消站内文章数据
+     */
+    @POST("lg/uncollect_originId/{id}/json")
+    Observable<BaseResponse<ArticleListData>> cancelCollectArticle(@Path("id") int id);
 
 }

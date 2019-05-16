@@ -17,7 +17,9 @@ import java.util.Random;
 
 import demo.zzhwanandroid.R;
 import demo.zzhwanandroid.app.WanAndroidApp;
+import demo.zzhwanandroid.core.constant.Constants;
 import demo.zzhwanandroid.moudles.login.ui.LoginActivity;
+import demo.zzhwanandroid.moudles.main.ui.activity.ArticleDetailActivity;
 
 public class CommonUtils {
 
@@ -28,21 +30,21 @@ public class CommonUtils {
         return info != null && info.isConnected();
     }
 
-//    public static void startArticleDetailActivity(Context context, int articleId, String articleTitle,
-//                                                  String articleLink, boolean isCollected,
-//                                                  boolean isShowCollectIcon, int articleItemPosition,
-//                                                  String eventBusTag) {
-//        Intent intent = new Intent(context, ArticleDetailActivity.class);
-//        intent.putExtra(Constants.ARTICLE_ID, articleId);
-//        intent.putExtra(Constants.ARTICLE_TITLE, articleTitle);
-//        intent.putExtra(Constants.ARTICLE_LINK, articleLink);
-//        intent.putExtra(Constants.IS_COLLECTED, isCollected);
-//        intent.putExtra(Constants.IS_SHOW_COLLECT_ICON, isShowCollectIcon);
-//        intent.putExtra(Constants.ARTICLE_ITEM_POSITION, articleItemPosition);
-//        intent.putExtra(Constants.EVENT_BUS_TAG, eventBusTag);
-//        context.startActivity(intent);
-//
-//    }
+    public static void startArticleDetailActivity(Context context, int articleId, String articleTitle,
+                                                  String articleLink, boolean isCollected,
+                                                  boolean isShowCollectIcon, int articleItemPosition,
+                                                  String eventBusTag) {
+        Intent intent = new Intent(context, ArticleDetailActivity.class);
+        intent.putExtra(Constants.ARTICLE_ID, articleId);
+        intent.putExtra(Constants.ARTICLE_TITLE, articleTitle);
+        intent.putExtra(Constants.ARTICLE_LINK, articleLink);
+        intent.putExtra(Constants.IS_COLLECTED, isCollected);
+        intent.putExtra(Constants.IS_SHOW_COLLECT_ICON, isShowCollectIcon);
+        intent.putExtra(Constants.ARTICLE_ITEM_POSITION, articleItemPosition);
+        intent.putExtra(Constants.EVENT_BUS_TAG, eventBusTag);
+        context.startActivity(intent);
+
+    }
 
     public static void startLoginActivity(Context context) {
         Intent intent = new Intent(context, LoginActivity.class);

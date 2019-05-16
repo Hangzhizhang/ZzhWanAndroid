@@ -16,12 +16,14 @@ import java.util.List;
 import butterknife.BindView;
 import demo.zzhwanandroid.R;
 import demo.zzhwanandroid.base.fragment.BaseFragment;
+import demo.zzhwanandroid.core.constant.Constants;
 import demo.zzhwanandroid.moudles.homepage.banner.BannerData;
 import demo.zzhwanandroid.moudles.homepage.banner.BannerGlideImageLoader;
 import demo.zzhwanandroid.moudles.homepage.bean.ArticleItemData;
 import demo.zzhwanandroid.moudles.homepage.bean.ArticleListData;
 import demo.zzhwanandroid.moudles.homepage.contract.HomePagerContract;
 import demo.zzhwanandroid.moudles.homepage.presenter.HomePagerPresenter;
+import demo.zzhwanandroid.utils.CommonUtils;
 import demo.zzhwanandroid.utils.ToastUtils;
 
 public class HomePagerFragment extends BaseFragment<HomePagerPresenter> implements HomePagerContract.View{
@@ -99,12 +101,12 @@ public class HomePagerFragment extends BaseFragment<HomePagerPresenter> implemen
         if (mAdapter.getData().size() <= 0 || mAdapter.getData().size() < position) {
             return;
         }
-//        CommonUtils.startArticleDetailActivity(_mActivity,
-//                mAdapter.getData().get(position).getId(),
-//                mAdapter.getData().get(position).getTitle(),
-//                mAdapter.getData().get(position).getLink(),
-//                mAdapter.getData().get(position).isCollect(),
-//                true, position, Constants.MAIN_PAGER);
+        CommonUtils.startArticleDetailActivity(_mActivity,
+                mAdapter.getData().get(position).getId(),
+                mAdapter.getData().get(position).getTitle(),
+                mAdapter.getData().get(position).getLink(),
+                mAdapter.getData().get(position).isCollect(),
+                true, position, Constants.MAIN_PAGER);
     }
 
     @Override

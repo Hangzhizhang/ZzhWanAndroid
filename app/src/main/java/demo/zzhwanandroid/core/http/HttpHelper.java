@@ -23,4 +23,8 @@ public interface HttpHelper {
     Observable<BaseResponse<List<BannerData>>> getBannerData();
 
     Observable<BaseResponse<List<ArticleItemData>>> getTopArticles();
+    // 收藏文章
+    Observable<BaseResponse<ArticleListData>> addCollectArticle(int id);
+    // 取消收藏
+    Observable<BaseResponse<ArticleListData>> cancelCollectArticle(int id);
 }
